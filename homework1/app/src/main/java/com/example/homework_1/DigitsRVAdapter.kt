@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.custom_grid_layout.view.*
 class DigitsRVAdapter(var digits: MutableList<Int>) : RecyclerView.Adapter<DigitsRVAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+
         return ViewHolder(LayoutInflater.from(parent.context)
             .inflate(R.layout.custom_grid_layout, parent, false))
     }
@@ -23,8 +24,8 @@ class DigitsRVAdapter(var digits: MutableList<Int>) : RecyclerView.Adapter<Digit
     fun updateDigits(newDigits: MutableList<Int>) {
         digits = newDigits
         notifyDataSetChanged()
-
     }
+
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
