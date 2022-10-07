@@ -29,11 +29,6 @@ class RecyclerFragment : Fragment(R.layout.fragment_recycler) {
         savedInstanceState: Bundle?
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_recycler, container, false)
-        view.imageButton.setOnClickListener{
-            digs.add(digs.last() + 1)
-            adapter.updateDigits(digs)
-            digitsRV.scrollToPosition(digs.size - 1)
-        }
         return view
     }
 
@@ -50,6 +45,11 @@ class RecyclerFragment : Fragment(R.layout.fragment_recycler) {
         if (savedInstanceState != null) {
             this.digs = savedInstanceState.getIntegerArrayList(DIGIT_KEY)!!.toMutableList()
             adapter.updateDigits(digs)
+        }
+        view.imageButton.setOnClickListener{
+            digs.add(digs.last() + 1)
+            adapter.updateDigits(digs)
+            digitsRV.scrollToPosition(digs.size - 1)
         }
 
     }
