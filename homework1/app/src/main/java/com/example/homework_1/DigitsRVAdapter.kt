@@ -7,7 +7,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.custom_grid_layout.view.*
 
-class DigitsRVAdapter(var digits: MutableList<Int>) : RecyclerView.Adapter<DigitsRVAdapter.ViewHolder>() {
+class DigitsRVAdapter(var digit: Int) : RecyclerView.Adapter<DigitsRVAdapter.ViewHolder>() {
+
+    var digits = createDigitList(digit)
+
+    fun createDigitList(dig: Int): MutableList<Int>  {
+        var array = mutableListOf<Int>()
+        for (i in 0..dig) {
+            array.add(i)
+        }
+        return array
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -21,8 +31,8 @@ class DigitsRVAdapter(var digits: MutableList<Int>) : RecyclerView.Adapter<Digit
 
     override fun getItemCount() = digits.size
 
-    fun updateDigits(newDigits: MutableList<Int>) {
-        digits = newDigits
+    fun updateDigits(newDigit: Int) {
+        digits = createDigitList(newDigit)
         notifyDataSetChanged()
     }
 
