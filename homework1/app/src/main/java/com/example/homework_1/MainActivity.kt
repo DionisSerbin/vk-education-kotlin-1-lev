@@ -27,13 +27,12 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun createFragment(fragment: Fragment){
-        if (fragment != null) {
-            val fragmentManager = supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
 
-            fragmentTransaction.add(R.id.fragment_container, fragment)
-            fragmentTransaction.commit()
-        }
+        fragmentTransaction.add(R.id.fragment_container, fragment)
+        fragmentTransaction.commit()
+
     }
 
 }

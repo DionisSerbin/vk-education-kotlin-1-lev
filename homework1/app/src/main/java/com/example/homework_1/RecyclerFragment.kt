@@ -64,7 +64,9 @@ class RecyclerFragment : Fragment(R.layout.fragment_recycler) {
 //        super.onViewStateRestored(savedInstanceState)
 //        if (savedInstanceState != null) {
 //            println("!!!!!!!!!!!")
-//            digs = savedInstanceState.getIntegerArrayList(DIGIT_KEY)!!.toMutableList()
+//            dig = savedInstanceState.getInt("DIGIT_KEY")
+//            adapter.updateDigits(dig)
+//            digitsRV.scrollToPosition(dig)
 //        }
 //    }
 }
