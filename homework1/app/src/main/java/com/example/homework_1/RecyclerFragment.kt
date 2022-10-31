@@ -10,63 +10,47 @@ import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_recycler.*
 import kotlinx.android.synthetic.main.fragment_recycler.view.*
 
-class RecyclerFragment : Fragment(R.layout.fragment_recycler) {
-    var dig = 0
-    var adapter = DigitsRVAdapter(dig)
-    val DIGIT_KEY: String = "DIGIT_KEY"
+private const val DIGIT_KEY: String = "DIGIT_KEY"
+private const val PORTRAIT_COLUMNS = 3
+private const val LANDSCAPE_COLUMNS = 4
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//            println("???????????")
-//        if (savedInstanceState != null) {
-//            this.digs = savedInstanceState.getIntegerArrayList(DIGIT_KEY)!!.toMutableList()
-//            adapter.updateDigits(digs)
-//        }
-//    }
+class RecyclerFragment : Fragment(R.layout.fragment_recycler) {
+
+    private var digits = arrayListOf(0)
+    private var adapter = DigitsRVAdapter(digits)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view: View = inflater.inflate(R.layout.fragment_recycler, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_recycler, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         digitsRV.adapter = adapter
+
         if (this.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            digitsRV.layoutManager = GridLayoutManager(context, 3)
-
+            digitsRV.layoutManager = GridLayoutManager(context, PORTRAIT_COLUMNS)
         } else {
-            digitsRV.layoutManager = GridLayoutManager(context, 4)
-        }
-        if (savedInstanceState != null) {
-            this.dig = savedInstanceState.getInt(DIGIT_KEY)
-            adapter.updateDigits(dig)
-        }
-        view.imageButton.setOnClickListener{
-            dig++
-            adapter.updateDigits(dig)
-            digitsRV.scrollToPosition(dig)
+            digitsRV.layoutManager = GridLayoutManager(context, LANDSCAPE_COLUMNS)
         }
 
+        if (savedInstanceState != null) {
+            this.digits = savedInstanceState.getIntegerArrayList(DIGIT_KEY)!!
+            adapter.updateDigits(digits)
+        }
+
+        view.imageButton.setOnClickListener {
+            digits.add(digits.size)
+            adapter.updateDigits(digits)
+            digitsRV.scrollToPosition(digits.size - 1)
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(DIGIT_KEY, dig)
-//        outState.putIntegerArrayList(DIGIT_KEY, ArrayList(digs))
+        outState.putIntegerArrayList(DIGIT_KEY, digits)
     }
-
-//    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-//        super.onViewStateRestored(savedInstanceState)
-//        if (savedInstanceState != null) {
-//            println("!!!!!!!!!!!")
-//            dig = savedInstanceState.getInt("DIGIT_KEY")
-//            adapter.updateDigits(dig)
-//            digitsRV.scrollToPosition(dig)
-//        }
-//    }
 }
