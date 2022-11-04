@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.homework_1.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), RecyclerFragment.IListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +25,15 @@ class MainActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
 
+        fragmentTransaction.add(R.id.fragment_container, fragment)
+        fragmentTransaction.commit()
+    }
+
+    override fun showNumber(value: Int, color: Int) {
+        val fragment = SecondFragment.newInstance(value, color)
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.addToBackStack("")
         fragmentTransaction.add(R.id.fragment_container, fragment)
         fragmentTransaction.commit()
     }

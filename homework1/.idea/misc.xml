@@ -8,6 +8,8 @@
         <entry key="app/src/main/res/layout/custom_grid_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.21822916666666667" />
         <entry key="app/src/main/res/layout/fragment_recycler.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.20416666666666666" />
+        <entry key="app/src/main/res/layout/second_fragment.xml" value="0.24862518310546877" />
       </map>
     </option>
   </component>
