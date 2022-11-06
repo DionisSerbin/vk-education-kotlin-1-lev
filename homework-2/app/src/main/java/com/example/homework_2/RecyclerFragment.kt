@@ -45,7 +45,7 @@ class RecyclerFragment : Fragment(R.layout.fragment_recycler) {
                             arr.getJSONObject(i)
                                 .getJSONObject("images")
                                 .getJSONObject("original")
-                                .getString("mp4")
+                                .getString("url")
                         )
                         println(imagesArr.last())
                     }
@@ -81,12 +81,6 @@ class RecyclerFragment : Fragment(R.layout.fragment_recycler) {
             adapter.updateDigits(getGifLinks())
         }
 
-        view.imageButton.setOnClickListener {
-//            digits.add(digits.size)
-//            adapter.updateDigits(digits)
-//            digitsRV.scrollToPosition(digits.size - 1)
-
-        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

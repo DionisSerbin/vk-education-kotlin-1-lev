@@ -41,7 +41,6 @@ class DigitsRVAdapter(var gifLinks: List<String>) :
             Glide.with(card)
                 .asGif()
                 .load(image)
-//                .disallowHardwareConfig()
                 .fitCenter()
                 .downsample(DownsampleStrategy.CENTER_INSIDE)
                 .dontTransform()
