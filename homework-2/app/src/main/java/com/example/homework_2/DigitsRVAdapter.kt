@@ -28,7 +28,7 @@ class DigitsRVAdapter(var gifLinks: List<String>) :
     override fun getItemCount() = gifLinks.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateDigits(newGifs: List<String>) {
+    fun updateGifLinks(newGifs: List<String>) {
         gifLinks = newGifs
         notifyDataSetChanged()
     }
@@ -38,13 +38,23 @@ class DigitsRVAdapter(var gifLinks: List<String>) :
 
 
         fun bind(image: String) {
-            Glide.with(card)
-                .asGif()
-                .load(image)
-                .fitCenter()
-                .downsample(DownsampleStrategy.CENTER_INSIDE)
-                .dontTransform()
-                .into(card.item_image)
+            if (image != "") {
+                Glide.with(card)
+                    .asGif()
+                    .load(image)
+                    .fitCenter()
+                    .downsample(DownsampleStrategy.CENTER_INSIDE)
+                    .dontTransform()
+                    .into(card.item_image)
+            } else {
+                Glide.with(card)
+                    .asGif()
+                    .load("https://media.tenor.com/JMucL9NFRXoAAAAC/placeholder-text.gif")
+                    .fitCenter()
+                    .downsample(DownsampleStrategy.CENTER_INSIDE)
+                    .dontTransform()
+                    .into(card.item_image)
+            }
 
             val color = Color.BLUE
 
