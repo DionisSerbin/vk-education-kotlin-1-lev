@@ -10,6 +10,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -29,7 +30,11 @@ class MainFragment: Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    lateinit var viewModel: MainViewModel
+    private val retrofitService = IAccessor.create()
+    private val gifPagerConfig = GifPagerConfig(retrofitService)
+
+    private val viewModel by viewModels<MainViewModel>(ownerProducer = { this }, factoryProducer = { MyViewModelFactory(gifPagerConfig) })
+
     private val gifPagerAdapter = GifPagerAdapter()
 
     override fun onCreateView(
@@ -48,13 +53,13 @@ class MainFragment: Fragment() {
         }
 //        recyclerview.adapter = gifPagerAdapter
 
-        val retrofitService = IAccessor.create()
-        val gifPagerConfig = GifPagerConfig(retrofitService)
+//        val retrofitService = IAccessor.create()
+//        val gifPagerConfig = GifPagerConfig(retrofitService)
 
-        viewModel = ViewModelProvider(
-            this,
-            MyViewModelFactory(gifPagerConfig)
-        ).get(MainViewModel::class.java)
+//        viewModel = ViewModelProvider(
+//            this,
+//            MyViewModelFactory(gifPagerConfig)
+//        ).get(MainViewModel::class.java)
 
         val updateButton = view.findViewById<Button>(R.id.updateButton)
         updateButton.isVisible = false
@@ -96,11 +101,15 @@ class MainFragment: Fragment() {
         updateButton.setOnClickListener {
             Toast.makeText(context, "updating...", Toast.LENGTH_LONG).show()
             updateButton.isVisible = false
-
-            viewModel = ViewModelProvider(
-                this,
-                MyViewModelFactory(gifPagerConfig)
-            ).get(MainViewModel::class.java)
+            viewLifecycleOwner.lifecycleScope.launch {
+                activity?.let {
+                    viewModel.getGifsList().observe(it) {
+                        it?.let {
+                            gifPagerAdapter.submitData(lifecycle, it)
+                        }
+                    }
+                }
+            }
         }
 
 
