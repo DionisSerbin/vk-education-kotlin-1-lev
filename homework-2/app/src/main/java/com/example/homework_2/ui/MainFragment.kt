@@ -101,15 +101,16 @@ class MainFragment: Fragment() {
         updateButton.setOnClickListener {
             Toast.makeText(context, "updating...", Toast.LENGTH_LONG).show()
             updateButton.isVisible = false
-            viewLifecycleOwner.lifecycleScope.launch {
-                activity?.let {
-                    viewModel.getGifsList().observe(it) {
-                        it?.let {
-                            gifPagerAdapter.submitData(lifecycle, it)
-                        }
-                    }
-                }
-            }
+            gifPagerAdapter.retry()
+//            viewLifecycleOwner.lifecycleScope.launch {
+//                activity?.let {
+//                    viewModel.getGifsList().observe(it) {
+//                        it?.let {
+//                            gifPagerAdapter.submitData(lifecycle, it)
+//                        }
+//                    }
+//                }
+//            }
         }
 
 
