@@ -1,4 +1,4 @@
-package com.example.homework_2.gif_proccessing
+package com.velmurugan.paging3android.ui
 
 import android.view.View
 import android.widget.ImageView
@@ -7,15 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
 import com.example.homework_2.R
+import com.example.homework_2.model.GiphyData
 
-class GifViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    protected val image by lazy { view.findViewById<ImageView>(R.id.image) }
+class MovieViewHolder(val view: View): RecyclerView.ViewHolder(view) {
+    protected val image by lazy { view.findViewById<ImageView>(R.id.imageview) }
     val card = view.findViewById<CardView>(R.id.cardSample)
     protected val imageLoader by lazy { Glide.with(card) }
 
-    fun bind(giphy: Data) {
-        println("!!!!!!!!!!!!!!!!!!!!")
-        println(giphy.images.original.url)
+    fun bind(giphy: GiphyData) {
         val url = giphy.images.original.url
         imageLoader
             .load(url)

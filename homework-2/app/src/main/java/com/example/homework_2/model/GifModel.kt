@@ -1,15 +1,18 @@
-package com.example.homework_2.gif_proccessing
+package com.example.homework_2.model
+
 import com.google.gson.annotations.SerializedName
 
+const val NETWORK_PAGE_SIZE = 50
 
-data class GiphyGenerated(
+data class GiphyResponse(
+    val page: Int,
     @SerializedName("data")
-    val `data`: List<Data>,
+    val `data`: List<GiphyData>,
 )
 
-data class Data(
+data class GiphyData(
     @SerializedName("images")
-    val images: Images,
+    val images: Images
 )
 
 data class Images(
