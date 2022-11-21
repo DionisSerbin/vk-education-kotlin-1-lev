@@ -25,7 +25,6 @@ interface IAccessor {
             }
 
             val client = OkHttpClient.Builder().apply {
-                //addInterceptor() // Интерспеторы для авторизации
                 addNetworkInterceptor(loggingInterceptor)
             }.build()
 

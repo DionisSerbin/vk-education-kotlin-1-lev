@@ -13,7 +13,7 @@ class GifPagingSource(private val accessor: IAccessor): PagingSource<Int, GiphyD
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GiphyData> {
 
         return try {
-            val position = params.key ?: 1
+            val position = params.key ?: ONE_POSITION
 
             val response = accessor.getGiphy(
                 apiKey = API_KEY,
@@ -23,8 +23,8 @@ class GifPagingSource(private val accessor: IAccessor): PagingSource<Int, GiphyD
 
             LoadResult.Page(
                 data = response.body()!!.data,
-                prevKey = if (position == 1) null else position - 1,
-                nextKey = position + 1
+                prevKey = if (position == ONE_POSITION) null else position - ONE_POSITION,
+                nextKey = position + ONE_POSITION
             )
 
         } catch (e: Exception) {
@@ -35,8 +35,8 @@ class GifPagingSource(private val accessor: IAccessor): PagingSource<Int, GiphyD
 
     override fun getRefreshKey(state: PagingState<Int, GiphyData>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
-            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
-                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
+            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(ONE_POSITION)
+                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(ONE_POSITION)
         }
     }
 
@@ -44,6 +44,7 @@ class GifPagingSource(private val accessor: IAccessor): PagingSource<Int, GiphyD
         const val API_KEY = "yY5LAD1stQaVe3gw1Ct1aQ9Zv2HroMVe"
         const val RATING = "g"
         const val LIMIT = NETWORK_PAGE_SIZE
+        const val ONE_POSITION = 1
     }
 
 }

@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName
 const val NETWORK_PAGE_SIZE = 50
 
 data class GiphyResponse(
-    val page: Int,
     @SerializedName("data")
     val `data`: List<GiphyData>,
 )

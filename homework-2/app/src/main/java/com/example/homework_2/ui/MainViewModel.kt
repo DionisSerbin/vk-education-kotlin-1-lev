@@ -9,12 +9,12 @@ import androidx.paging.cachedIn
 import com.example.homework_2.model.GiphyData
 import com.example.homework_2.model.GifPagerConfig
 
-class MainViewModel constructor(private val mainRepository: GifPagerConfig) : ViewModel() {
+class MainViewModel constructor(private val gifPagerConfig: GifPagerConfig) : ViewModel() {
 
     val errorMessage = MutableLiveData<String>()
 
     fun getGifsList(): LiveData<PagingData<GiphyData>> {
-        return mainRepository.getGifsList().cachedIn(viewModelScope)
+        return gifPagerConfig.getGifsList().cachedIn(viewModelScope)
     }
 
 }

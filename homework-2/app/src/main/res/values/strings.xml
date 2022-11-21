@@ -1,16 +1,9 @@
 <resources>
-    <string name="app_name">homework-1</string>
+    <string name="app_name">homework-2</string>
     <string name="textview">TextView</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="affirmation1">image1</string>
-    <string name="affirmation2">image2</string>
-    <string name="affirmation3">image3</string>
-    <string name="affirmation4">image4</string>
-    <string name="affirmation5">image5</string>
-    <string name="affirmation6">image6</string>
-    <string name="affirmation7">image7</string>
-    <string name="affirmation8">image8</string>
-    <string name="affirmation9">image9</string>
-    <string name="affirmation10">image10</string>
+    <string name="update_gifs">обновить гифки</string>
+
+
 </resources>
