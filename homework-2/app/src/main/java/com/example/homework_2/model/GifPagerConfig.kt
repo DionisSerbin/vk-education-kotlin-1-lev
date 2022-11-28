@@ -1,7 +1,5 @@
 package com.example.homework_2.model
 
-
-
 import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -14,12 +12,11 @@ import com.example.homework_2.network.IAccessor
 class GifPagerConfig constructor(private val accessor: IAccessor) {
 
     fun getGifsList(): LiveData<PagingData<GiphyData>> {
-
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
-                enablePlaceholders = false,
-                initialLoadSize = 2
+                enablePlaceholders = true,
+                initialLoadSize = NETWORK_PAGE_SIZE
             ),
             pagingSourceFactory = {
                 GifPagingSource(accessor)

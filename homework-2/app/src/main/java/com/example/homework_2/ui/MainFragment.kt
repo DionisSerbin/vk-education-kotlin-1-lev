@@ -62,7 +62,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     delay(DELAY_TIME)
                     progressDialog.isVisible = false
                 }
-                // If we have an error, show a toast
                 val errorState = when {
                     loadState.append is LoadState.Error -> loadState.append as LoadState.Error
                     loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error

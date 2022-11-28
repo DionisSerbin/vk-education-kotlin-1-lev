@@ -20,13 +20,8 @@ interface IAccessor {
 
     companion object {
         fun create() : IAccessor {
-            val loggingInterceptor = HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            }
 
-            val client = OkHttpClient.Builder().apply {
-                addNetworkInterceptor(loggingInterceptor)
-            }.build()
+            val client = OkHttpClient.Builder().build()
 
             val restrofit = Retrofit.Builder().apply {
                 client(client)

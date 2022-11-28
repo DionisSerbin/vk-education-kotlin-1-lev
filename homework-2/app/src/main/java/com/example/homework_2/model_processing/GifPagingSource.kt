@@ -5,7 +5,9 @@ import androidx.paging.PagingState
 import com.example.homework_2.model.GiphyData
 import com.example.homework_2.model.NETWORK_PAGE_SIZE
 import com.example.homework_2.network.IAccessor
-import java.lang.Exception
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import kotlin.Exception
 
 class GifPagingSource(private val accessor: IAccessor): PagingSource<Int, GiphyData>() {
 
@@ -14,18 +16,20 @@ class GifPagingSource(private val accessor: IAccessor): PagingSource<Int, GiphyD
 
         return try {
             val position = params.key ?: ONE_POSITION
+            return withContext(Dispatchers.IO) {
+                val response = accessor.getGiphy(
+                    apiKey = API_KEY,
+                    rating = RATING,
+                    limit = LIMIT
+                )
 
-            val response = accessor.getGiphy(
-                apiKey = API_KEY,
-                rating = RATING,
-                limit = LIMIT
-            )
-
-            LoadResult.Page(
-                data = response.body()!!.data,
-                prevKey = if (position == ONE_POSITION) null else position - ONE_POSITION,
-                nextKey = position + ONE_POSITION
-            )
+                val resp = response.body()
+                LoadResult.Page(
+                    data = resp!!.data,
+                    prevKey = if (position == ONE_POSITION) null else position - ONE_POSITION,
+                    nextKey = position + ONE_POSITION
+                )
+            }
 
         } catch (e: Exception) {
             LoadResult.Error(e)
